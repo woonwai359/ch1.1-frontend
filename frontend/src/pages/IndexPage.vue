@@ -21,7 +21,7 @@
       </q-card-section>
     </q-card>
 
-    <q-card>
+    <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Docker Concepts (สรุปสั้น ๆ)</div>
         <q-list bordered separator class="q-mt-sm">
@@ -29,6 +29,27 @@
             <q-item-section>
               <q-item-label>{{ item.title }}</q-item-label>
               <q-item-label caption>{{ item.detail }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card-section>
+    </q-card>
+
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">Docker Quick Reference</div>
+        <q-list bordered separator class="q-mt-sm">
+          <q-item v-for="(item, index) in dockerQuickRef" :key="index">
+            <q-item-section avatar>
+              <q-badge color="primary">{{ index + 1 }}</q-badge>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                <code>{{ item.command }}</code>
+              </q-item-label>
+              <q-item-label caption class="q-mt-xs">
+                ใช้เมื่อไร: {{ item.whenToUse }}
+              </q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -77,6 +98,25 @@ const dockerItems = [
   {
     title: 'Network',
     detail: 'ให้บริการใน Docker ติดต่อกันได้ เช่น Nginx ส่งต่อคำขอไปยัง Express',
+  },
+]
+
+const dockerQuickRef = [
+  {
+    command: 'docker build -t my-quasar-frontend:latest -f frontend/Dockerfile ./frontend',
+    whenToUse: 'ใช้เมื่อต้องการสร้าง Docker image ใหม่จาก Dockerfile และซอร์สโค้ดในโฟลเดอร์ frontend',
+  },
+  {
+    command: 'docker run -d -p 8080:80 --name my-quasar-frontend-container my-quasar-frontend:latest',
+    whenToUse: 'ใช้เมื่อต้องการรัน container แบบเบื้องหลังและแมปพอร์ต 8080 ของเครื่องไปยังพอร์ต 80 ใน container',
+  },
+  {
+    command: 'docker compose up -d --build',
+    whenToUse: 'ใช้เมื่อต้องการ build image และสั่งรันทุกบริการที่กำหนดใน docker-compose.yml แบบเบื้องหลัง',
+  },
+  {
+    command: 'docker compose down',
+    whenToUse: 'ใช้เมื่อต้องการหยุดและลบ container รวมถึงเครือข่ายที่สร้างจาก Docker Compose เมื่อเลิกใช้งาน',
   },
 ]
 </script>
